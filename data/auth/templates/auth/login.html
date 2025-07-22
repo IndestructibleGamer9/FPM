@@ -1,0 +1,46 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('auth.static', filename='login.css') }}">
+{% endblock %}
+
+{% block content %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://unpkg.com/feather-icons"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<meta name="mobile-web-app-capable" content="yes">
+
+<div class="container">
+    <div class="backbtn">
+        <a href="{{ url_for('index')  }}">
+            <i data-feather="arrow-left" width="40" height="40"></i>
+        </a>
+    </div>
+    <div class="form-wrapper">
+        <h1>Login</h1>
+        <form method="POST" action="{{ url_for('auth.login') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ wtf.form_field(form.email, class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ wtf.form_field(form.password, class="form-control") }}
+            </div>
+            <div class="checkbox">
+                {{ wtf.form_field(form.remember) }}
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <p>Don't have an account? <a href="{{ url_for('auth.signup') }}">Sign Up Now!</a></p>
+    </div>
+</div>
+{% endblock %}
